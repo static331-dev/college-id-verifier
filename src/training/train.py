@@ -33,25 +33,31 @@ def train():
             # Clear previous gradients
             optimizer.zero_grad()
 
-            # Forward pass
+            # Forward Pass
             outputs = model(images)
 
-            # Calculate reconstruction loss
+            # Calculate Loss
             loss = criterion(outputs, images)
 
-            # Backpropagation
+            # Backward Pass
             loss.backward()
 
-            # Update model weights
+            # Update Weights
             optimizer.step()
 
-            # Add batch loss
+            # Add Batch Loss
             running_loss += loss.item()
 
-        # Print average loss for this epoch
+        # Average Loss for one epoch
         avg_loss = running_loss / len(dataloader)
 
         print(f"Epoch [{epoch + 1}/{epochs}] - Loss: {avg_loss:.6f}")
+
+    # Save the trained model
+    torch.save(model.state_dict(), "models/autoencoder.pth")
+
+    print("\nModel saved successfully!")
+    print("Location: models/autoencoder.pth")
 
 
 if __name__ == "__main__":
