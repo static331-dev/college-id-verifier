@@ -1,10 +1,9 @@
 from torch.utils.data import DataLoader
 
-from dataset import IDCardDataset
-
+from src.dataset.dataset import IDCardDataset
 
 def create_dataloader(batch_size=8):
-
+    
     dataset = IDCardDataset()
 
     dataloader = DataLoader(
