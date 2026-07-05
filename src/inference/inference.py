@@ -22,7 +22,7 @@ def inference(image_path):
     # Load Image
     image = Image.open(image_path).convert("RGB")
 
-    # Convert to Tensor
+    # Convert Image to Tensor
     image_tensor = transform(image)
 
     # Add Batch Dimension
@@ -36,13 +36,23 @@ def inference(image_path):
     criterion = nn.MSELoss()
     loss = criterion(output, image_tensor)
 
-    print(f"Reconstruction Error: {loss.item():.6f}")
+    # Decision Threshold
+    threshold = 0.05
 
-    # Convert tensors to images
+    print(f"\nReconstruction Error: {loss.item():.6f}")
+    print(f"Threshold: {threshold}")
+
+    # Decision Logic
+    if loss.item() < threshold:
+        print("Prediction: Genuine ID")
+    else:
+        print("Prediction: Suspicious / Fake ID")
+
+    # Convert tensors back to images
     original = image_tensor.squeeze(0).permute(1, 2, 0).numpy()
     reconstructed = output.squeeze(0).permute(1, 2, 0).numpy()
 
-    # Display images
+    # Display Original and Reconstructed Images
     plt.figure(figsize=(10, 5))
 
     plt.subplot(1, 2, 1)
