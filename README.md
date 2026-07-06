@@ -206,18 +206,6 @@ Prediction
 
 ---
 
-## 📸 Screenshots
-
-You can add screenshots here:
-
-- Homepage
-- Image Preview
-- Genuine Prediction
-- Suspicious Prediction
-- Swagger UI
-
----
-
 ## 🔮 Future Scope
 
 - Train on larger datasets
