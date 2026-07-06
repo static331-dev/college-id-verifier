@@ -39,14 +39,10 @@ def inference(image_path):
     # Decision Threshold
     threshold = 0.05
 
-    print(f"\nReconstruction Error: {loss.item():.6f}")
-    print(f"Threshold: {threshold}")
-
-    # Decision Logic
     if loss.item() < threshold:
-        print("Prediction: Genuine ID")
+        prediction = "Genuine ID"
     else:
-        print("Prediction: Suspicious / Fake ID")
+        prediction = "Suspicious / Fake ID"
 
     # Convert tensors back to images
     original = image_tensor.squeeze(0).permute(1, 2, 0).numpy()
@@ -68,7 +64,15 @@ def inference(image_path):
     plt.tight_layout()
     plt.show()
 
+    # Return values for FastAPI
+    return prediction, loss.item()
+
 
 if __name__ == "__main__":
 
-    inference("data/processed/aadit/WhatsApp Image 2026-06-29 at 5.19.50 PM.jpeg")
+    prediction, error = inference(
+        "data/processed/aadit/WhatsApp Image 2026-06-29 at 5.19.50 PM.jpeg"
+    )
+
+    print(f"\nPrediction: {prediction}")
+    print(f"Reconstruction Error: {error:.6f}")
