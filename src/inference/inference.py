@@ -62,7 +62,7 @@ def inference(image_path):
     plt.axis("off")
 
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
     # Return values for FastAPI
     return prediction, loss.item()
